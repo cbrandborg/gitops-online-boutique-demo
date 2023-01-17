@@ -19,6 +19,8 @@ env:
   WL_PROVIDER: dvtm-gitops-demo-github-provider
   APP-VERSION: ${{ github.run_id }}
 
+permissions: write-all
+
 jobs:
   build-push:
     name: Building and pushing to Artifact Registry
