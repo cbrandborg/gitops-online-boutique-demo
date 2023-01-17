@@ -23,10 +23,6 @@ jobs:
   build-push:
     name: Building and pushing to Artifact Registry
     runs-on: ubuntu-latest
-    
-    defaults:
-      run:
-        shell: bash
 
     steps:
 
