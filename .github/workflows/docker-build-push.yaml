@@ -1,12 +1,12 @@
 name: 'docker-build-push'
 
 on: 
-  # push:
-  #     branches:
-  #       - 'main'
+  push:
+      branches:
+        - 'main'
   #     paths:
   #       - '!argo/**'
-  workflow_dispatch
+
 
 env:
   LOCATION: europe-west1
@@ -23,13 +23,6 @@ jobs:
   build-push:
     name: Building and pushing to Artifact Registry
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: 'read'
-      id-token: 'write'
-      pull-requests: write
-      issues: write
-      repository-projects: write
     
     defaults:
       run:
@@ -41,27 +34,27 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - id: 'gcloud-auth'
-      name: 'Authenticate to Google Cloud'
-      uses: 'google-github-actions/auth@v1.0.0'
-      with:
-        workload_identity_provider: 'projects/${{ env.PROJECT_NUM }}/locations/global/workloadIdentityPools/${{ env.WORKLOAD_IDENTITY_POOL }}/providers/${{ env.WL_PROVIDER }}' # env
-        service_account: ${{ env.SERVICE_ACCOUNT }} # env
+    # - id: 'gcloud-auth'
+    #   name: 'Authenticate to Google Cloud'
+    #   uses: 'google-github-actions/auth@v1.0.0'
+    #   with:
+    #     workload_identity_provider: 'projects/${{ env.PROJECT_NUM }}/locations/global/workloadIdentityPools/${{ env.WORKLOAD_IDENTITY_POOL }}/providers/${{ env.WL_PROVIDER }}' # env
+    #     service_account: ${{ env.SERVICE_ACCOUNT }} # env
 
-    - id: 'docker-auth'
-      name: 'Configure docker repo'
-      run: |
-          gcloud auth configure-docker ${{ env.LOCATION }}-docker.pkg.dev
+    # - id: 'docker-auth'
+    #   name: 'Configure docker repo'
+    #   run: |
+    #       gcloud auth configure-docker ${{ env.LOCATION }}-docker.pkg.dev
 
-    - id: 'docker-build'
-      name: 'Build image'
-      run: |
-          docker build . --tag ${{ env.IMAGE_NAME }}:${{ env.APP-VERSION }}
+    # - id: 'docker-build'
+    #   name: 'Build image'
+    #   run: |
+    #       docker build . --tag ${{ env.IMAGE_NAME }}:${{ env.APP-VERSION }}
 
-    - id: 'docker-push'
-      name: 'Push image to registry'
-      run: |
-          docker push ${{ env.IMAGE_NAME }}:${{ env.APP-VERSION }}
+    # - id: 'docker-push'
+    #   name: 'Push image to registry'
+    #   run: |
+    #       docker push ${{ env.IMAGE_NAME }}:${{ env.APP-VERSION }}
     
     # - uses: imranismail/setup-kustomize@v2
 
