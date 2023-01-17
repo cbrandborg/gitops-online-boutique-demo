@@ -1,0 +1,92 @@
+name: 'docker-build-push'
+
+on: 
+  # push:
+  #     branches:
+  #       - 'main'
+  #     paths:
+  #       - '!argo/**'
+  workflow_dispatch
+    
+permissions:
+  pull-requests: write
+  issues: write
+  repository-projects: write
+
+env:
+  LOCATION: europe-west1
+  PROJECT_ID: prj-dt-eu-gitops-compute
+  PROJECT_NUM: 371476213888
+  ARTIFACT_REGISTRY: dgc-dk-frontend-online-boutique
+  IMAGE_NAME: europe-west1-docker.pkg.dev/prj-dt-eu-gitops-compute/dgc-dk-frontend-online-boutique/frontend-demo
+  SERVICE_ACCOUNT: sa-frontend-CICD@prj-dt-eu-gitops-compute.iam.gserviceaccount.com
+  WORKLOAD_IDENTITY_POOL: wl-pool-frontend-boutique-gh
+  WL_PROVIDER: dvtm-gitops-demo-github-provider
+  APP-VERSION: ${{ github.run_id }}
+
+jobs:
+  build-push:
+    name: Building and pushing to Artifact Registry
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - id: 'gcloud-auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v1.0.0'
+      with:
+        workload_identity_provider: 'projects/${{ env.PROJECT_NUM }}/locations/global/workloadIdentityPools/${{ env.WORKLOAD_IDENTITY_POOL }}/providers/${{ env.WL_PROVIDER }}' # env
+        service_account: ${{ env.SERVICE_ACCOUNT }} # env
+
+    - id: 'docker-auth'
+      name: 'Configure docker repo'
+      run: |
+          gcloud auth configure-docker ${{ env.LOCATION }}-docker.pkg.dev
+
+    - id: 'docker-build'
+      name: 'Build image'
+      run: |
+          docker build . --tag ${{ env.IMAGE_NAME }}:${{ env.APP-VERSION }}
+
+    - id: 'docker-push'
+      name: 'Push image to registry'
+      run: |
+          docker push ${{ env.IMAGE_NAME }}:${{ env.APP-VERSION }}
+    
+    - uses: imranismail/setup-kustomize@v2
+
+    - id: 'kustomize-update-tag'
+      name: 'Update image tag using Kustomize'
+      run: |
+          cd argo/store
+          kustomize edit set image ${{ env.IMAGE_NAME }}:${{ env.APP-VERSION }}
+
+          cd ../..
+          
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          git commit -a -m "[automated commit] Set image tag to `${{ env.APP-VERSION }}` skip-checks:true"
+          git push
+
+    # - name: Push changes
+    #   uses: ad-m/github-push-action@master
+    #   with:
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    #     branch: ${{ github.ref }}
+
+
+
+
