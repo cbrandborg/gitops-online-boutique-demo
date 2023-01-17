@@ -1,0 +1,35 @@
+
+name: 'test'
+
+on: 
+  push:
+      branches:
+        - 'main'
+
+jobs:
+  build-push:
+    name: test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - id: 'test'
+      name: 'test'
+      run: |
+          
+          git config --local user.email "test@github.com"
+          git config --local user.name "github-actions"
+
+          touch test.txt
+
+          git add .
+
+          git commit -a -m "test"
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
