@@ -75,9 +75,10 @@ jobs:
 
           cd ../..
           
-          git config --local user.email "test@github.com"
-          git config --local user.name "github-actions"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
 
+          git add .
           git commit -a -m "[automated commit] Set image tag to `${{ env.APP-VERSION }}` skip-checks:true"
 
     - name: Push changes
