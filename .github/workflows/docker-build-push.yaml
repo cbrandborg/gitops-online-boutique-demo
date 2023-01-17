@@ -68,16 +68,14 @@ jobs:
     - id: 'kustomize-update-tag'
       name: 'Update image tag using Kustomize'
       run: |
-          cd argo/store
-          kustomize edit set image ${{ env.IMAGE_NAME }}:${{ env.APP-VERSION }}
+          git config --local user.email "test@github.com"
+          git config --local user.name "github-actions"
 
-          cd ../..
-          
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
+          touch test.txt
 
           git add .
-          git commit -a -m "[automated commit]"
+
+          git commit -a -m "test"
 
     - name: Push changes
       uses: ad-m/github-push-action@master
@@ -88,3 +86,16 @@ jobs:
 
 
 
+          
+
+
+          #           cd argo/store
+          # kustomize edit set image ${{ env.IMAGE_NAME }}:${{ env.APP-VERSION }}
+
+          # cd ../..
+          
+          # git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # git config --local user.name "github-actions[bot]"
+
+          # git add .
+          # git commit -a -m "[automated commit]"
