@@ -27,3 +27,6 @@ resources:
 - recommendationservice.yaml
 - redis.yaml
 - shippingservice.yaml
+images:
+- name: europe-west1-docker.pkg.dev/prj-dt-eu-gitops-compute/dgc-dk-frontend-online-boutique/frontend-demo
+  newTag: "3940387100"
