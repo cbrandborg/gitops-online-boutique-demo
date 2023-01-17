@@ -32,6 +32,9 @@ jobs:
     permissions:
       contents: 'read'
       id-token: 'write'
+      pull-requests: write
+      issues: write
+      repository-projects: write
     
     defaults:
       run:
@@ -79,13 +82,17 @@ jobs:
           git config --local user.name "github-actions[bot]"
 
           git add .
-          git commit -a -m "[automated commit] Set image tag to `${{ env.APP-VERSION }}` skip-checks:true"
+          git commit -a -m "[automated commit]"
+          git status
+          echo ${{ github.ref }}
+          echo ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref }}
+
+    # - name: Push changes
+    #   uses: ad-m/github-push-action@master
+    #   with:
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    #     branch: ${{ github.ref }}
 
 
 
