@@ -52,7 +52,7 @@ jobs:
     #   run: |
     #       docker push ${{ env.IMAGE_NAME }}:${{ env.APP-VERSION }}
     
-    # - uses: imranismail/setup-kustomize@v2
+    - uses: imranismail/setup-kustomize@v2
 
     - id: 'kustomize-update-tag'
       name: 'Update image tag using Kustomize'
