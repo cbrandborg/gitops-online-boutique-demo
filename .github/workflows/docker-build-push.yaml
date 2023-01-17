@@ -30,12 +30,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    # - id: 'gcloud-auth'
-    #   name: 'Authenticate to Google Cloud'
-    #   uses: 'google-github-actions/auth@v1.0.0'
-    #   with:
-    #     workload_identity_provider: 'projects/${{ env.PROJECT_NUM }}/locations/global/workloadIdentityPools/${{ env.WORKLOAD_IDENTITY_POOL }}/providers/${{ env.WL_PROVIDER }}' # env
-    #     service_account: ${{ env.SERVICE_ACCOUNT }} # env
+    - id: 'gcloud-auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v1.0.0'
+      with:
+        workload_identity_provider: 'projects/${{ env.PROJECT_NUM }}/locations/global/workloadIdentityPools/${{ env.WORKLOAD_IDENTITY_POOL }}/providers/${{ env.WL_PROVIDER }}' # env
+        service_account: ${{ env.SERVICE_ACCOUNT }} # env
 
     # - id: 'docker-auth'
     #   name: 'Configure docker repo'
