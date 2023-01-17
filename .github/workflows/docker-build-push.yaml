@@ -7,11 +7,6 @@ on:
   #     paths:
   #       - '!argo/**'
   workflow_dispatch
-    
-permissions:
-  pull-requests: write
-  issues: write
-  repository-projects: write
 
 env:
   LOCATION: europe-west1
@@ -83,16 +78,12 @@ jobs:
 
           git add .
           git commit -a -m "[automated commit]"
-          git status
-          echo ${{ github.ref }}
-          echo ${{ secrets.GITHUB_TOKEN }}
 
-
-    # - name: Push changes
-    #   uses: ad-m/github-push-action@master
-    #   with:
-    #     github_token: ${{ secrets.GITHUB_TOKEN }}
-    #     branch: ${{ github.ref }}
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
 
 
 
