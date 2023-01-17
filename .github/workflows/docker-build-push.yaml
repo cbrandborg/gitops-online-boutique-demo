@@ -60,7 +60,7 @@ jobs:
           git config --local user.email "test@github.com"
           git config --local user.name "github-actions"
 
-          touch test.txt
+          echo hej >> test.txt
 
           git add .
 
