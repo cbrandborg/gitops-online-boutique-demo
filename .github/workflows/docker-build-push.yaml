@@ -39,20 +39,20 @@ jobs:
         workload_identity_provider: 'projects/${{ env.PROJECT_NUM }}/locations/global/workloadIdentityPools/${{ env.WORKLOAD_IDENTITY_POOL }}/providers/${{ env.WL_PROVIDER }}' # env
         service_account: ${{ env.SERVICE_ACCOUNT }} # env
 
-    # - id: 'docker-auth'
-    #   name: 'Configure docker repo'
-    #   run: |
-    #       gcloud auth configure-docker ${{ env.LOCATION }}-docker.pkg.dev
+    - id: 'docker-auth'
+      name: 'Configure docker repo'
+      run: |
+          gcloud auth configure-docker ${{ env.LOCATION }}-docker.pkg.dev
 
-    # - id: 'docker-build'
-    #   name: 'Build image'
-    #   run: |
-    #       docker build . --tag ${{ env.IMAGE_NAME }}:${{ env.APP-VERSION }}
+    - id: 'docker-build'
+      name: 'Build image'
+      run: |
+          docker build . --tag ${{ env.IMAGE_NAME }}:${{ env.APP-VERSION }}
 
-    # - id: 'docker-push'
-    #   name: 'Push image to registry'
-    #   run: |
-    #       docker push ${{ env.IMAGE_NAME }}:${{ env.APP-VERSION }}
+    - id: 'docker-push'
+      name: 'Push image to registry'
+      run: |
+          docker push ${{ env.IMAGE_NAME }}:${{ env.APP-VERSION }}
     
     - uses: imranismail/setup-kustomize@v2
 
