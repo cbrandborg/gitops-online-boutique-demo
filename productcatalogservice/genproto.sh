@@ -1,4 +1,6 @@
-# Copyright 2022 Google LLC
+#!/bin/bash -eu
+#
+# Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,21 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-#- productcatalogservice.yaml
-resources:
-- adservice.yaml
-- cartservice.yaml
-- checkoutservice.yaml
-- currencyservice.yaml
-- emailservice.yaml
-- loadgenerator.yaml
-- paymentservice.yaml
-- productcatalogservice.yaml
-- recommendationservice.yaml
-- redis.yaml
-- shippingservice.yaml
-images:
-- name: europe-west1-docker.pkg.dev/prj-dt-eu-gitops-compute/dgc-dk-frontend-online-boutique/frontend-demo
-  newTag: "4532421926"
+# [START gke_productcatalogservice_genproto]
+
+PATH=$PATH:$GOPATH/bin
+protodir=../../pb
+
+protoc --go_out=plugins=grpc:genproto -I $protodir $protodir/demo.proto
+
+# [END gke_productcatalogservice_genproto]

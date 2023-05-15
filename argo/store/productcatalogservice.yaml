@@ -41,7 +41,8 @@ spec:
               - all
           privileged: false
           readOnlyRootFilesystem: true
-        image: gcr.io/google-samples/microservices-demo/productcatalogservice:v0.5.0
+        #image: gcr.io/google-samples/microservices-demo/productcatalogservice:v0.5.0
+        image: europe-west1-docker.pkg.dev/prj-dt-eu-gitops-compute/dgc-dk-frontend-online-boutique/catalog-service:latest
         ports:
         - containerPort: 3550
         env:

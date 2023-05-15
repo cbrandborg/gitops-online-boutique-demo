@@ -1,0 +1,112 @@
+{
+    "products": [
+        {
+            "id": "OLJCESPC7Z",
+            "name": "MacBook Air",
+            "description": "MacBook Air 13 M1/8/256 2020 (space grey)",
+            "picture": "/static/img/products/macbook-air.jpeg",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 1000,
+                "nanos": 990000000
+            },
+            "categories": ["accessories"]
+        },
+        {
+            "id": "66VCHSJNUP",
+            "name": "Asus Chromebook",
+            "description": "Asus Chromebook CX1400 Celeron/4/32 bærbar computer",
+            "picture": "/static/img/products/asus-chromebook.jpeg",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 100,
+                "nanos": 990000000
+            },
+            "categories": ["clothing", "tops"]
+        },
+        {
+            "id": "1YMWWN1N4O",
+            "name": "HUAWEI MateView Monitor",
+            "description": "HUAWEI MateView GT 27”",
+            "picture": "/static/img/products/huawei-mateview.jpeg",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 300,
+                "nanos": 990000000
+            },
+            "categories": ["accessories"]
+        },
+        {
+            "id": "L9ECAV7KIM",
+            "name": "Logitech Keyboard",
+            "description": "A neat addition to your summer wardrobe.",
+            "picture": "/static/img/products/logitech-mk545.jpeg",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 89,
+                "nanos": 990000000
+            },
+            "categories": ["footwear"]
+        },
+        {
+            "id": "2ZYFJ3GM2N",
+            "name": "HP M27 Monitor",
+            "description": "HP M27fw 27",
+            "picture": "/static/img/products/hp-m27fw.jpeg",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 200,
+                "nanos": 990000000
+            },
+            "categories": ["hair", "beauty"]
+        },
+        {
+            "id": "0PUK6V6EV0",
+            "name": "Samsung Galaxy",
+            "description": "Samsung Galaxy S23+ 5G smartphone 8/512GB (beige)",
+            "picture": "/static/img/products/samsung-galaxy.jpeg",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 1000,
+                "nanos": 990000000
+            },
+            "categories": ["decor", "home"]
+        },
+        {
+            "id": "LS4PSXUNUM",
+            "name": "iPhone 14 Plus",
+            "description": "iPhone 14 Plus – 5G smartphone 128GB Midnight",
+            "picture": "/static/img/products/iphone-14-plus.jpeg",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 1100,
+                "nanos": 490000000
+            },
+            "categories": ["kitchen"]
+        },
+        {
+            "id": "9SIQT8TOJO",
+            "name": "Garmin Sport Watch",
+            "description": "Garmin Vivomove Sport hybrid smartwatch",
+            "picture": "/static/img/products/garmin.jpeg",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 5,
+                "nanos": 490000000
+            },
+            "categories": ["kitchen"]
+        },
+        {
+            "id": "6E92ZMYYFZ",
+            "name": "Apple Watch",
+            "description": "Apple Watch SE 2nd Gen 40 mm GPS",
+            "picture": "/static/img/products/apple-watch.jpeg",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 2500,
+                "nanos": 990000000
+            },
+            "categories": ["kitchen"]
+        }
+    ]
+}

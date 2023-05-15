@@ -1,6 +1,5 @@
 cluster-name ?= "gitops-demo-cluster"
-zone ?= "europe-west9-a"
-zonee ?= "europe-west9"
+region ?= "europe-west9"
 port ?= 8080
 project ?= "prj-dt-eu-gitops-compute"
 
@@ -12,37 +11,31 @@ start:
 # Cluster Creation ------------------------------------
 
 cluster-exists:
-	@gcloud container clusters list --zone $(zone) --project $(project) | grep $(cluster-name) > /dev/null && echo cluster $(cluster-name) exists || (echo cluster $(cluster-name) does not exist && false)
+	@gcloud container clusters list --region $(region) --project $(project) | grep $(cluster-name) > /dev/null && echo cluster $(cluster-name) exists || (echo cluster $(cluster-name) does not exist && false)
 
 delete-cluster:
-	gcloud beta container clusters delete $(cluster-name) --zone $(zone) --project $(project)
+	gcloud beta container clusters delete $(cluster-name) --region $(region) --project $(project)
 	kubectl config delete-context $(cluster-name) || true
 
 create-cluster:
 	export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 	gcloud components update
-	@gcloud beta container clusters create $(cluster-name) \
+	@gcloud container clusters create-auto $(cluster-name) \
 		--project $(project) \
-		--zone $(zone) \
 		--scopes "https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append","https://www.googleapis.com/auth/ndev.clouddns.readwrite" \
-		--node-locations $(zone)
-		--machine-type=e2-standard-2
-		--num-nodes=6
-	kubectl config delete-context $(cluster-name) || true
-	gcloud container clusters get-credentials $(cluster-name) --zone $(zone) --project $(project)
-	kubectl config rename-context $$(kubectl config current-context) $(cluster-name)
-	@echo
+		--region $(region)
+	make context
 
 context:
 	kubectl config delete-context $(cluster-name) || true
-	gcloud container clusters get-credentials $(cluster-name) --zone $(zone) --project $(project)
+	gcloud container clusters get-credentials $(cluster-name) --region $(region) --project $(project)
 	kubectl config rename-context $$(kubectl config current-context) $(cluster-name)
 	@echo
 
 ## Argo
 
 argo-setup:
-	argo-check-if-credentials-exist
+	make argo-check-if-credentials-exist
 	make argo-install
 	make argo-bootstrap-creds
 	make argo-login
@@ -89,4 +82,4 @@ argo-bootstrap-apps:
 ## webpage
 
 open-frontend:
-	@open http://$$(kubectl get service frontend-external | awk '{print $$4}' | grep -v EXTERNAL-IP)
+	@open http://$$(kubectl get service frontend-svc-external | awk '{print $$4}' | grep -v EXTERNAL-IP)
