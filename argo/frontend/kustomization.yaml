@@ -5,5 +5,5 @@ resources:
 - frontend.yaml
 - ingress.yaml
 images:
-- name: europe-west1-docker.pkg.dev/prj-dt-eu-gitops-compute/dgc-dk-frontend-online-boutique/frontend-demo
+- name: europe-west1-docker.pkg.dev/interview-demos/gitops-online-boutique-frontend-demo/frontend-demo
   newTag: "4540805740"

@@ -1,15 +1,17 @@
-PROJECT_ID=prj-dt-eu-gitops-compute
+PROJECT_ID=interview-demos
 DOCKER_SERVICE_ACCOUNT=sa-frontend-CICD
 LOCATION=europe-west1
 PROJECT_ID_NUM=$(gcloud projects describe ${PROJECT_ID} --format "value(projectNumber)")
 WORKLOAD_IDENTITY_POOL=wl-pool-frontend-boutique-gh
-DVTM_GH_ORG=devoteamgcloud
-GH_REPO=dgc-dk-gitops-frontend
-WL_PROVIDER=dvtm-gitops-demo-github-provider
-ARTIFACT_REGISTRY=dgc-dk-frontend-online-boutique
+GH_USER=cbrandborg
+GH_REPO=gitops-online-boutique-demo
+WL_PROVIDER=gitops-demo-github-provider
+ARTIFACT_REGISTRY=gitops-online-boutique-frontend-demo
 
 
 gcloud services enable artifactregistry.googleapis.com --project=${PROJECT_ID}
+gcloud services enable container.googleapis.com --project=${PROJECT_ID}
+
 
 gcloud artifacts repositories create $ARTIFACT_REGISTRY \
     --repository-format=docker \

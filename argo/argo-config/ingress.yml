@@ -10,7 +10,7 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   rules:
-  - host: argo.devoteamdiscovery.dk
+  - host: argo.deepstateanalytics.dk
     http:
       paths:
       - path: /

@@ -7,6 +7,6 @@ metadata:
     argocd.argoproj.io/secret-type: repo-creds
 stringData:
   type: git
-  url: https://github.com/devoteamgcloud
+  url: https://github.com/cbrandborg
   username: username
   password: token

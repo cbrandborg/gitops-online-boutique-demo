@@ -42,7 +42,7 @@ spec:
                 - all
             privileged: false
             readOnlyRootFilesystem: true
-          image: europe-west1-docker.pkg.dev/prj-dt-eu-gitops-compute/dgc-dk-frontend-online-boutique/frontend-demo:latest
+          image: europe-west1-docker.pkg.dev/interview-demos/gitops-online-boutique-frontend-demo/frontend-demo
           ports:
           - containerPort: 8080
           readinessProbe:

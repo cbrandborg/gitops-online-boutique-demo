@@ -1,7 +1,7 @@
 cluster-name ?= "gitops-demo-cluster"
-region ?= "europe-west9"
+region ?= "europe-west1"
 port ?= 8080
-project ?= "prj-dt-eu-gitops-compute"
+project ?= "interview-demos"
 
 start:
 	make cluster-exists && make context || make create-cluster

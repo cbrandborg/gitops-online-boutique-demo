@@ -10,13 +10,13 @@ on:
 
 env:
   LOCATION: europe-west1
-  PROJECT_ID: prj-dt-eu-gitops-compute
-  PROJECT_NUM: 371476213888
-  ARTIFACT_REGISTRY: dgc-dk-frontend-online-boutique
-  IMAGE_NAME: europe-west1-docker.pkg.dev/prj-dt-eu-gitops-compute/dgc-dk-frontend-online-boutique/frontend-demo
-  SERVICE_ACCOUNT: sa-frontend-CICD@prj-dt-eu-gitops-compute.iam.gserviceaccount.com
+  PROJECT_ID: interview-demos
+  PROJECT_NUM: 1937348260
+  ARTIFACT_REGISTRY: gitops-online-boutique-frontend-demo
+  IMAGE_NAME: europe-west1-docker.pkg.dev/interview-demos/gitops-online-boutique-frontend-demo/frontend-demo
+  SERVICE_ACCOUNT: sa-frontend-CICD@interview-demos.iam.gserviceaccount.com
   WORKLOAD_IDENTITY_POOL: wl-pool-frontend-boutique-gh
-  WL_PROVIDER: dvtm-gitops-demo-github-provider
+  WL_PROVIDER: gitops-demo-github-provider
   APP-VERSION: ${{ github.run_id }}
 
 permissions: write-all

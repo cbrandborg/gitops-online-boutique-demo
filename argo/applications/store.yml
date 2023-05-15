@@ -9,7 +9,7 @@ spec:
     name: in-cluster
     namespace: default
   source:
-    repoURL: https://github.com/devoteamgcloud/dgc-dk-gitops-frontend
+    repoURL: https://github.com/cbrandborg/gitops-online-boutique-demo
     targetRevision: HEAD
     path: ./argo/store
   syncPolicy: 
