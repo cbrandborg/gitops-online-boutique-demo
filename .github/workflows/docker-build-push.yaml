@@ -12,6 +12,7 @@ on:
       - main
     paths:
       - 'src/**'
+      - 'productcatalogservice/**'
 
 env:
   LOCATION: europe-west1
