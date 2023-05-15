@@ -19,7 +19,7 @@ env:
   PROJECT_ID: interview-demos
   PROJECT_NUM: 1937348260
   ARTIFACT_REGISTRY: gitops-online-boutique-frontend-demo
-  IMAGE_NAME: europe-west1-docker.pkg.dev/interview-demos/gitops-online-boutique-frontend-demo/frontend-demo
+  IMAGE_NAME: europe-west1-docker.pkg.dev/interview-demos/gitops-online-boutique-frontend-demo
   SERVICE_ACCOUNT: sa-frontend-CICD@interview-demos.iam.gserviceaccount.com
   WORKLOAD_IDENTITY_POOL: wl-pool-frontend-boutique-gh
   WL_PROVIDER: gitops-demo-github-provider
