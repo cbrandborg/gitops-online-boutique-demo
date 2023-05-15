@@ -1,12 +1,17 @@
-name: 'docker-build-push'
+
+name: "docker-build-push"
 
 on: 
+  # pull_request:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - 'src/**'
   push:
-      branches:
-        - 'main'
-  #     paths:
-  #       - '!argo/**'
-
+    branches:
+      - main
+    paths:
+      - 'src/**'
 
 env:
   LOCATION: europe-west1
@@ -27,58 +32,56 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
 
-    # Checkout the repository to the GitHub Actions runner
-    - name: Checkout
-      uses: actions/checkout@v3
+      - id: "gcloud-auth"
+        name: "Authenticate to Google Cloud"
+        uses: "google-github-actions/auth@v1.0.0"
+        with:
+          workload_identity_provider: "projects/${{ env.PROJECT_NUM }}/locations/global/workloadIdentityPools/${{ env.WORKLOAD_IDENTITY_POOL }}/providers/${{ env.WL_PROVIDER }}"
+          service_account: ${{ env.SERVICE_ACCOUNT }}
 
-    - id: 'gcloud-auth'
-      name: 'Authenticate to Google Cloud'
-      uses: 'google-github-actions/auth@v1.0.0'
-      with:
-        workload_identity_provider: 'projects/${{ env.PROJECT_NUM }}/locations/global/workloadIdentityPools/${{ env.WORKLOAD_IDENTITY_POOL }}/providers/${{ env.WL_PROVIDER }}' # env
-        service_account: ${{ env.SERVICE_ACCOUNT }} # env
-
-    - id: 'docker-auth'
-      name: 'Configure docker repo'
-      run: |
+      - id: "docker-auth"
+        name: "Configure docker repo"
+        run: |
           gcloud auth configure-docker ${{ env.LOCATION }}-docker.pkg.dev
 
-    - id: 'docker-build'
-      name: 'Build image'
-      run: |
-          docker build . --tag ${{ env.IMAGE_NAME }}:${{ env.APP-VERSION }}
+      - id: "docker-build"
+        name: "Build image"
+        run: |
+          docker build ./src --tag ${{ env.IMAGE_NAME }}:${{ env.APP-VERSION }}
+          docker build ./productcatalogservice --tag europe-west1-docker.pkg.dev/prj-dt-eu-gitops-compute/dgc-dk-frontend-online-boutique/catalog-service:latest
+          
 
-    - id: 'docker-push'
-      name: 'Push image to registry'
-      run: |
+      - id: "docker-push"
+        name: "Push image to registry"
+        run: |
           docker push ${{ env.IMAGE_NAME }}:${{ env.APP-VERSION }}
-    
-    - uses: imranismail/setup-kustomize@v2
+          docker push europe-west1-docker.pkg.dev/prj-dt-eu-gitops-compute/dgc-dk-frontend-online-boutique/catalog-service:latest
 
-    - id: 'kustomize-update-tag'
-      name: 'Update image tag using Kustomize'
-      run: |
+      - uses: imranismail/setup-kustomize@v2
 
-          cd argo/store
+      - id: "kustomize-update-tag"
+        name: "Update image tag using Kustomize"
+        run: |
+
+          cd argo/frontend
           kustomize edit set image ${{ env.IMAGE_NAME }}:${{ env.APP-VERSION }}
-
+          git add kustomization.yaml
           cd ../..
-          
-          git config --local user.email "test@github.com"
-          git config --local user.name "github-actions"
 
-          git add .
-          git commit -a -m "[automated commit]"
+          git config --local user.email "bump-version-bump@github.com"
+          git config --local user.name "github-actions-bump-version"
 
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref }}
+          git commit -m "Bump version [automated commit]"
 
-
-
-
-          
-
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+          force_with_lease: true
