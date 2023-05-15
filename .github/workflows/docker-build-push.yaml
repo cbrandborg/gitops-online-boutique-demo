@@ -54,15 +54,15 @@ jobs:
       - id: "docker-build"
         name: "Build image"
         run: |
-          docker build ./src --tag ${{ env.IMAGE_NAME }}:${{ env.APP-VERSION }}
-          docker build ./productcatalogservice --tag europe-west1-docker.pkg.dev/prj-dt-eu-gitops-compute/dgc-dk-frontend-online-boutique/catalog-service:latest
+          docker build ./src --tag ${{ env.IMAGE_NAME }}/frontend-demo:${{ env.APP-VERSION }}
+          docker build ./productcatalogservice --tag ${{ env.IMAGE_NAME }}/catalog-service:latest
           
 
       - id: "docker-push"
         name: "Push image to registry"
         run: |
-          docker push ${{ env.IMAGE_NAME }}:${{ env.APP-VERSION }}
-          docker push europe-west1-docker.pkg.dev/prj-dt-eu-gitops-compute/dgc-dk-frontend-online-boutique/catalog-service:latest
+          docker push ${{ env.IMAGE_NAME }}/frontend-demo:${{ env.APP-VERSION }}
+          docker push ${{ env.IMAGE_NAME }}/catalog-service:latest
 
       - uses: imranismail/setup-kustomize@v2
 
