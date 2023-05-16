@@ -28,5 +28,5 @@ resources:
 - redis.yaml
 - shippingservice.yaml
 images:
-- name: europe-west1-docker.pkg.dev/prj-dt-eu-gitops-compute/dgc-dk-frontend-online-boutique/frontend-demo
+- name: europe-west1-docker.pkg.dev/interview-demos/gitops-online-boutique-frontend-demo/catalog-service
   newTag: "4532421926"

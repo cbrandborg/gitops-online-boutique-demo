@@ -77,6 +77,11 @@ jobs:
           cd argo/frontend
           kustomize edit set image ${{ env.IMAGE_NAME }}/frontend-demo:${{ env.APP-VERSION }}
           git add kustomization.yaml
+          
+          cd ../store
+          kustomize edit set image ${{ env.IMAGE_NAME }}/catalog-service:${{ env.APP-VERSION }}
+          git add kustomization.yaml
+
           cd ../..
 
           git config --local user.email "bump-version-bump@github.com"
