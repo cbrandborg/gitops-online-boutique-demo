@@ -45,5 +45,5 @@ gcloud projects add-iam-policy-binding ${PROJECT_ID} \
 gcloud iam service-accounts add-iam-policy-binding ${DOCKER_SERVICE_ACCOUNT}@${PROJECT_ID}.iam.gserviceaccount.com \
     --project=${PROJECT_ID} \
     --role="roles/iam.workloadIdentityUser" \
-    --member="principalSet://iam.googleapis.com/projects/${PROJECT_ID_NUM}/locations/global/workloadIdentityPools/${WORKLOAD_IDENTITY_POOL}/attribute.repository/${DVTM_GH_ORG}/${GH_REPO}"
+    --member="principalSet://iam.googleapis.com/projects/${PROJECT_ID_NUM}/locations/global/workloadIdentityPools/${WORKLOAD_IDENTITY_POOL}/attribute.repository/${GH_USER}/${GH_REPO}"
 

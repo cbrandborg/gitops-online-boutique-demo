@@ -46,6 +46,10 @@ jobs:
           workload_identity_provider: "projects/${{ env.PROJECT_NUM }}/locations/global/workloadIdentityPools/${{ env.WORKLOAD_IDENTITY_POOL }}/providers/${{ env.WL_PROVIDER }}"
           service_account: ${{ env.SERVICE_ACCOUNT }}
 
+      - id: "test"
+        run: |
+          gcloud auth list
+
       - id: "docker-auth"
         name: "Configure docker repo"
         run: |
