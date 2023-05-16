@@ -75,7 +75,7 @@ jobs:
         run: |
 
           cd argo/frontend
-          kustomize edit set image ${{ env.IMAGE_NAME }}:${{ env.APP-VERSION }}
+          kustomize edit set image ${{ env.IMAGE_NAME }}/frontend-demo:${{ env.APP-VERSION }}
           git add kustomization.yaml
           cd ../..
 
