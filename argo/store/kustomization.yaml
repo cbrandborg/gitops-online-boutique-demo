@@ -29,4 +29,4 @@ resources:
 - shippingservice.yaml
 images:
 - name: europe-west1-docker.pkg.dev/interview-demos/gitops-online-boutique-frontend-demo/catalog-service
-  newTag: "4989803825"
+  newTag: "4989869564"
